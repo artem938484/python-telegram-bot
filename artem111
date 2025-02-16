@@ -1,0 +1,13 @@
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram.ext import ApplicationBuilder, CommandHandler
+
+async def start(update, context):
+    keyboard = [
+        [InlineKeyboardButton("Открыть Mini App", web_app=WebAppInfo(url="https://ваше-домен.com"))]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Нажмите кнопку:", reply_markup=reply_markup)
+
+app = ApplicationBuilder().token("ВАШ_API_ТОКЕН").build()
+app.add_handler(CommandHandler("start", start))
+app.run_polling()
